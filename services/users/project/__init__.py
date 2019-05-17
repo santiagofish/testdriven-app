@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 # instantiate the db
 db = SQLAlchemy()
 
+
 def create_app(script_info=None):
 
     # instantiate the app
