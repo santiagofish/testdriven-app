@@ -27,18 +27,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  nginx:
-    container_name: nginx
-    build: ./services/nginx
-      #context: ./services/nginx
-      #dockerfile: Dockerfile-prod
-    restart: always
-    ports:
-      - 80:80
-    depends_on:
-      - users
-      - client
-
   client:
     container_name: client
     build:
@@ -51,3 +39,15 @@ services:
       - 3007:80
     depends_on:
       - users
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile-prod
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - users
+      - client
