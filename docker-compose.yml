@@ -28,7 +28,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-
   client:
     build:
       context: ./services/client
