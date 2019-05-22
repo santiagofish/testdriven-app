@@ -46,7 +46,7 @@ def register_user():
         else:
             response_object['message'] = 'Sorry. That user already exists.'
             return jsonify(response_object), 400
-    # handler errors
+    # handle errors
     except (exc.IntegrityError, ValueError):
         db.session.rollback()
         return jsonify(response_object), 400
