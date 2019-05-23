@@ -1,10 +1,10 @@
 import React from 'react';
 
-const UsersList = ({ users }) => {
+const UsersList = (props) => {
   return (
     <div>
       {
-        users.map((user) => {
+        props.users.map((user) => {
           return (
             <h4
               key={user.id}
