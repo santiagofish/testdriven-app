@@ -4,7 +4,10 @@ import { Redirect } from 'react-router-dom';
 
 const Form = (props) => {
   if (props.isAuthenticated) {
+    console.log("You're authenticated already!");
     return <Redirect to='/' />;
+  }else{
+    console.log("You're NOT authenticated!");
   };
   return (
     <div>

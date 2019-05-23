@@ -8,6 +8,7 @@ import About from './components/About';
 import NavBar from './components/NavBar';
 import Form from './components/Form';
 import Logout from './components/Logout';
+import UserStatus from './components/UserStatus';
 
 
 class App extends Component {
@@ -23,13 +24,14 @@ class App extends Component {
         email: '',
         password: ''
       },
-      isAuthenticated: false
+      isAuthenticated: false,
     };
     this.addUser = this.addUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
+    //this.checkAuthStatus = this.checkAuthStatus.bind(this);
   };
 
   componentDidMount() {
@@ -70,9 +72,9 @@ class App extends Component {
 
   clearFormState() {
     this.setState({
-      formData: { username: '', email: '', password: '' },
       username: '',
-      email: ''
+      email: '',
+      formData: { username: '', email: '', password: '' }
     });
   };
 
@@ -93,7 +95,8 @@ class App extends Component {
             window.localStorage.setItem('authToken', res.data.auth_token);
             this.setState({ isAuthenticated: true });
             this.getUsers();
-          });
+          })
+          .catch((err) => { console.log(err) } );
   };
 
   logoutUser() {
@@ -101,10 +104,14 @@ class App extends Component {
     this.setState({ isAuthenticated: false });
   };
 
+
   render() {
     return (
       <div>
-        <NavBar title={this.state.title} />
+        <NavBar
+          title={this.state.title}
+          isAuthenticated={this.state.isAuthenticated}
+        />
         <section className="section">
           <div className="container">
             <div className="columns">
@@ -118,6 +125,8 @@ class App extends Component {
                       handleUserFormSubmit={this.handleUserFormSubmit}
                       handleFormChange={this.handleFormChange}
                       isAuthenticated={this.state.isAuthenticated}
+
+                      //checkAuthStatus={this.checkAuthStatus}
                     />
                   )} />
                   <Route exact path='/login' render={() => (
@@ -127,6 +136,8 @@ class App extends Component {
                       handleUserFormSubmit={this.handleUserFormSubmit}
                       handleFormChange={this.handleFormChange}
                       isAuthenticated={this.state.isAuthenticated}
+
+                      //checkAuthStatus={this.checkAuthStatus}
                     />
                   )} />
                   <Route exact path='/' render={() => (
@@ -147,6 +158,11 @@ class App extends Component {
                   <Route exact path='/logout' render={() => (
                     <Logout
                       logoutUser={this.logoutUser}
+                      isAuthenticated={this.state.isAuthenticated}
+                    />
+                  )} />
+                  <Route exact path='/status' render={() => (
+                    <UserStatus
                       isAuthenticated={this.state.isAuthenticated}
                     />
                   )} />
