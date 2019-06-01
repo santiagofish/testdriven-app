@@ -33,6 +33,15 @@ class App extends Component {
     //this.checkAuthStatus = this.checkAuthStatus.bind(this);
   };
 
+// refactor! Put 'things that do not produce side-effects' in constructor-^,
+// and things that DO do side-effects in componentDidMount
+  componentWillMount() {
+    console.log("auth status: ", this.state.isAuthenticated);
+    if (window.localStorage.getItem('authToken')) {
+      this.setState({ isAuthenticated: true });
+    };
+  };
+
   componentDidMount() {
     this.getUsers();
   };
