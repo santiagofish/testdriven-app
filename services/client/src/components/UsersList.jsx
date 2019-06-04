@@ -2,6 +2,12 @@ import React from 'react';
 
 
 const UsersList = (props) => {
+  // if (!props.isAuthenticated) {
+  //   return(
+  //     <p>You must be logged in to view this.
+  //     Click <Link to="/login">here</Link> to log back in.</p>
+  //   );
+  // };
   return (
     <div>
       <h1 className="title is-1">All Users</h1>

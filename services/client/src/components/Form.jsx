@@ -41,12 +41,13 @@ class Form extends Component {
 
   handleUserFormSubmit(event) {
     event.preventDefault();
+    console.log("form submitted, so far so good")
     const formType = this.props.formType;
     const data = {
       email: this.state.formData.email,
       password: this.state.formData.password,
     };
-    if (formType === 'register') {
+    if (formType === 'Register') {
       data.username = this.state.formData.username;
     }
     const url =

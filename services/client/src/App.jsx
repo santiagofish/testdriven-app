@@ -22,7 +22,7 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     // this.addUser = this.addUser.bind(this);
     // this.handleChange = this.handleChange.bind(this);
-    //this.checkAuthStatus = this.checkAuthStatus.bind(this);
+    // this.checkAuthStatus = this.checkAuthStatus.bind(this);
   };
 
 // refactor! Put 'things that do not produce side-effects' in constructor-^,
@@ -35,6 +35,9 @@ class App extends Component {
   };
 
   componentDidMount() {
+    if (window.localStorage.getItem('authToken')) {
+      this.setState({ isAuthenticated: true });
+    };
     this.getUsers();
   };
 
@@ -44,19 +47,19 @@ class App extends Component {
          .catch((err) => { console.log(err) } );
   };
 
-  // addUser(event) {
-  //   event.preventDefault();
-  //   const data = {
-  //     username: this.state.username,
-  //     email: this.state.email
-  //   };
-  //   axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`, data)
-  //        .then((res) => {
-  //          this.getUsers();
-  //          this.setState({ username: '', email: ''});
-  //        })
-  //        .catch((err) => { console.log(err) });
-  // };
+  addUser(event) {
+    event.preventDefault();
+    const data = {
+      username: this.state.username,
+      email: this.state.email
+    };
+    axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`, data)
+         .then((res) => {
+           this.getUsers();
+           this.setState({ username: '', email: ''});
+         })
+         .catch((err) => { console.log(err) });
+  };
  // arrow functions seem to eliminate need for this.handlechange above??
   // handleChange(event) {
   //   const obj = {};
