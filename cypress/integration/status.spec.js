@@ -26,7 +26,7 @@ describe('Status', () => {
 
     cy.wait(500);
 
-    // assert '/status' is displayed properly
+    // assert '/status' is displaying properly
     cy.visit('/status');
     cy.get('.navbar-burger').click();
     cy.contains('User Status').click();
