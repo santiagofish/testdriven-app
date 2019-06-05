@@ -12,7 +12,7 @@ describe('Status', () => {
       .get('a').contains('User Status').should('not.be.visible')
       .get('a').contains('Log Out').should('not.be.visible')
       .get('a').contains('Register')
-      .get('a').contains('Log In')
+      .get('a').contains('Log In');
   });
   it('should display user info if a user is logged in', () => {
     // register user
@@ -20,7 +20,7 @@ describe('Status', () => {
       .visit('/register')
       .get('input[name="username"]').type(username)
       .get('input[name="email"]').type(email)
-      .get('input[name="password"]').type('test')
+      .get('input[name="password"]').type('testtesttest')
       .get('input[type="submit"]').click()
       .get('.navbar-burger').click();
 

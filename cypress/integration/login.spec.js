@@ -9,7 +9,11 @@ describe('Login', () => {
     cy
       .visit('/login')
       .get('h1').contains('Log In')
-      .get('form');
+      .get('form')
+      .get('input[disabled]')
+      .get('.validation-list')
+      .get('.validation-list > .error').first().contains(
+        'Email is required.');
   });
   it('should allow a user to sign in', () => {
     // register user
@@ -17,7 +21,7 @@ describe('Login', () => {
       .visit('/register')
       .get('input[name="username"]').type(username)
       .get('input[name="email"]').type(email)
-      .get('input[name="password"]').type('test')
+      .get('input[name="password"]').type('testtesttest')
       .get('input[type="submit"]').click();
 
     cy.get('.navbar-burger').click();
@@ -27,7 +31,7 @@ describe('Login', () => {
     cy
       .get('a').contains('Log In').click()
       .get('input[name="email"]').type(email)
-      .get('input[name="password"]').type('test')
+      .get('input[name="password"]').type('testtesttest')
       .get('input[type="submit"]').click()
       .wait(100);
 
