@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Form from './components/forms/Form';
 import Logout from './components/Logout';
 import UserStatus from './components/UserStatus';
+import Message from './components/Message';
 
 
 class App extends Component {
@@ -17,6 +18,8 @@ class App extends Component {
       users: [],
       title: 'TestDriven.io',
       isAuthenticated: false,
+      messageName: null,
+      messageType: null
     };
     this.logoutUser = this.logoutUser.bind(this);
     this.loginUser = this.loginUser.bind(this);
@@ -35,6 +38,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    // is this still necessary?
     if (window.localStorage.getItem('authToken')) {
       this.setState({ isAuthenticated: true });
     };
@@ -76,6 +80,14 @@ class App extends Component {
     window.localStorage.setItem('authToken', token);
     this.setState({ isAuthenticated: true });
     this.getUsers();
+    this.createMessage('Welcome!', 'success');
+  };
+
+  createMessage(name='Sanity Check', type='success') {
+    this.setState({
+      messageName: name,
+      messageType: type
+    });
   };
 
   render() {
@@ -87,6 +99,12 @@ class App extends Component {
         />
         <section className="section">
           <div className="container">
+            {this.state.messageName && this.state.messageType &&
+              <Message
+                messageName={this.state.messageName}
+                messageType={this.state.messageType}
+              />
+            }
             <div className="columns">
               <div className="column is-half">
                 <br/>
