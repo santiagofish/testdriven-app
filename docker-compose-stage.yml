@@ -5,20 +5,19 @@ services:
   users:
     build:
       context: ./services/users
-      dockerfile: Dockerfile-prod
+      dockerfile: Dockerfile-stage
     expose:
       - 5000
     environment:
       - FLASK_ENV=production
-      - APP_SETTINGS=project.config.ProductionConfig
-      - DATABASE_URL=postgres://postgres:postgres@users-db:5432/users_prod
+      - APP_SETTINGS=project.config.StagingConfig
+      - DATABASE_URL=postgres://postgres:postgres@users-db:5432/users_stage
       - DATABASE_TEST_URL=postgres://postgres:postgres@users-db:5432/users_test
-      - SECRET_KEY=${SECRET_KEY}
+      - SECRET_KEY=my_precious
     depends_on:
       - users-db
 
   users-db:
-    container_name: users-db
     build:
       context: ./services/users/project/db
       dockerfile: Dockerfile
@@ -32,7 +31,7 @@ services:
     container_name: client
     build:
       context: ./services/client
-      dockerfile: Dockerfile-prod
+      dockerfile: Dockerfile-stage
       args:
         - NODE_ENV=production
         - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
@@ -44,7 +43,7 @@ services:
   swagger:
     build:
       context: ./services/swagger
-      dockerfile: Dockerfile-prod
+      dockerfile: Dockerfile-stage
     expose:
       - 8080
     environment:
@@ -53,10 +52,9 @@ services:
       - users
 
   nginx:
-    container_name: nginx
     build:
       context: ./services/nginx
-      dockerfile: Dockerfile-prod
+      dockerfile: Dockerfile-stage
     restart: always
     ports:
       - 80:80
