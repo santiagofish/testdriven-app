@@ -1,4 +1,4 @@
-#!/bin/bash   asdfasdfsdf
+#!/bin/bash
 
 
 type=$1
